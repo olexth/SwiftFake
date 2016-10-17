@@ -10,6 +10,42 @@ import XCTest
 @testable import SwiftFake
 
 class SwiftFakeTests: XCTestCase {
+    // MARK: Name
+    func testMaleFirstName() {
+        let maleFirstName = SwiftFake.maleFirstName()
+
+        XCTAssertTrue(maleFirstName.characters.count > 0, "male first name shoud not be of null length")
+        let nameComponents = maleFirstName.components(separatedBy: " ")
+        XCTAssertTrue(nameComponents.count == 1, "male first name shoud consist from one word")
+        let uppercased = isUppercased(character: maleFirstName.characters.first!)
+        XCTAssertTrue(uppercased, "male first name should start from an uppercased character")
+        XCTAssertTrue(isFromSource(maleFirstName: maleFirstName), "male first name should be taken from source")
+    }
+
+    func testMaleLastName() {
+        let maleLastName = SwiftFake.maleLastName()
+
+        XCTAssertTrue(maleLastName.characters.count > 0, "male last name shoud not be of null length")
+        let nameComponents = maleLastName.components(separatedBy: " ")
+        XCTAssertTrue(nameComponents.count == 1, "male last name should consist from one word")
+        let uppercased = isUppercased(character: maleLastName.characters.first!)
+        XCTAssertTrue(uppercased, "male last name should start from an uppercased character")
+        XCTAssertTrue(isFromSource(maleLastName: maleLastName), "male last name should be taken from source")
+    }
+
+    func testMaleFullName() {
+        let maleFullName = SwiftFake.maleFullName()
+
+        XCTAssertTrue(maleFullName.characters.count > 0, "male full name shoud not be of null length")
+        let nameComponents = maleFullName.components(separatedBy: " ")
+        XCTAssertTrue(nameComponents.count == 2, "male full name should consist from two words")
+        let uppercasedFirstName = isUppercased(character: maleFullName.characters.first!)
+        XCTAssertTrue(uppercasedFirstName, "male first name should start from an uppercased character")
+        let uppercasedLastName = isUppercased(character: maleFullName.characters.first!)
+        XCTAssertTrue(uppercasedLastName, "male last name should start from an uppercased character")
+        XCTAssertTrue(isFromSource(maleFirstName: nameComponents.first!), "male first name should be taken from source")
+        XCTAssertTrue(isFromSource(maleLastName: nameComponents.last!), "male last name should be taken from source")
+    }
 
     // MARK: Contact
 
@@ -90,5 +126,30 @@ private extension SwiftFakeTests {
             codeCharacter = String(character)
         }
         return areSymbolsEqual
+    }
+
+    func isUppercased(character: Character) -> Bool {
+        let string = String(character)
+        return (string == string.uppercased())
+    }
+
+    func isFromSource(maleFirstName: String) -> Bool {
+        let maleFirstNames = ["Victor", "Brian", "Steve", "Marcus", "Stanley", "Jaco", "John", "Avishai", "Richard", "Alex"]
+        return maleFirstNames.contains(maleFirstName)
+    }
+
+    func isFromSource(maleLastName: String) -> Bool {
+        let maleLastNames = ["Wooten", "Bromberg", "Bailey", "Miller", "Clarke", "Pastorius", "Patitucci", "Cohen", "Bona", "Webster"]
+        return maleLastNames.contains(maleLastName)
+    }
+
+    func isFromSource(femaleFirstName: String) -> Bool {
+        let femaleFirstNames = ["Esperanza", "Suzi", "Carol", "Kim", "Antonella", "Tal", "Divinity", "Manou", "Mohini", "Rhonda"]
+        return femaleFirstNames.contains(femaleFirstName)
+    }
+
+    func isFromSource(femaleLastName: String) -> Bool {
+        let femaleLastNames = ["Spalding", "Quatro", "Kaye", "Gordon", "Mazza", "Wilkenfeld", "Roxx", "Gallo", "Dey", "Smith"]
+        return femaleLastNames.contains(femaleLastName)
     }
 }
