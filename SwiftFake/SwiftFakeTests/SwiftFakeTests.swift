@@ -168,6 +168,21 @@ class SwiftFakeTests: XCTestCase {
         let phoneNumberSubstring = phoneNumber.substring(with: phoneNumberRange)
         XCTAssertTrue(areSymbolsEqualIn(string: phoneNumberSubstring), "phone number symbols should be equal")
     }
+
+    // MARK: Data
+
+    func testGender() {
+        let gender = SwiftFake.gender()
+        XCTAssertNotNil(gender, "gender should be not nil")
+        XCTAssertTrue(isFromeSource(gender: gender), "gender should be one of two values")
+    }
+
+    // MARK: ID
+
+    func testUUID() {
+        let uuid = SwiftFake.uuidID()
+        XCTAssertNotNil(NSUUID(uuidString: uuid), "id should be in correct UUID format")
+    }
 }
 
 private extension SwiftFakeTests {
@@ -206,5 +221,9 @@ private extension SwiftFakeTests {
     func isFromSource(femaleLastName: String) -> Bool {
         let femaleLastNames = ["Spalding", "Quatro", "Kaye", "Gordon", "Mazza", "Wilkenfeld", "Roxx", "Gallo", "Dey", "Smith"]
         return femaleLastNames.contains(femaleLastName)
+    }
+
+    func isFromeSource(gender: String) -> Bool {
+        return ["Male", "Female"].contains(gender)
     }
 }
