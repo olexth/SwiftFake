@@ -70,6 +70,12 @@ public struct SwiftFake {
     }
 
     // MARK: Date
+
+    // MARK: ID
+
+    public static func uuidID() -> String {
+        return NSUUID().uuidString
+    }
 }
 
 // Basic types extensions
