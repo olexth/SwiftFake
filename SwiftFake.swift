@@ -15,6 +15,14 @@ public struct SwiftFake {
 
     // MARK: Name
 
+    public static func fullName() -> String {
+        if Bool.randomBool() == true {
+            return SwiftFake.maleFullName()
+        } else {
+            return SwiftFake.femaleFullName()
+        }
+    }
+
     public static func maleFirstName() -> String {
         return SwiftFake().maleFirstNames.randomElement()
     }
@@ -37,14 +45,6 @@ public struct SwiftFake {
 
     public static func femaleFullName() -> String {
         return femaleFirstName() + " " + femaleLastName()
-    }
-
-    public static func fullName() -> String {
-        if Bool.randomBool() == true {
-            return SwiftFake.maleFullName()
-        } else {
-            return SwiftFake.femaleFullName()
-        }
     }
 
     // MARK: Contact
