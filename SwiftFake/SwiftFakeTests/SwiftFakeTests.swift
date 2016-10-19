@@ -11,6 +11,25 @@ import XCTest
 
 class SwiftFakeTests: XCTestCase {
     // MARK: Name
+    func testFullName() {
+        let fullName = SwiftFake.fullName()
+
+        XCTAssertTrue(fullName.characters.count > 0, "full name should not be of null length")
+        let nameComponents = fullName.components(separatedBy: " ")
+        XCTAssertTrue(nameComponents.count == 2, "full name should consist from two words")
+        let uppercasedFirstName = isUppercased(character: fullName.characters.first!)
+        XCTAssertTrue(uppercasedFirstName, "first name should start from an uppercased character")
+        let uppercasedLastName = isUppercased(character: fullName.characters.first!)
+        XCTAssertTrue(uppercasedLastName, "last name should start from an uppercased character")
+
+        if isFromSource(maleFirstName: nameComponents.first!) == true {
+            XCTAssertTrue(isFromSource(maleLastName: nameComponents.last!), "male name should have male last name")
+        } else {
+            XCTAssertTrue(isFromSource(femaleFirstName: nameComponents.first!), "female name should have female first name")
+            XCTAssertTrue(isFromSource(femaleLastName: nameComponents.last!), "female name should have female last name")
+        }
+    }
+
     func testMaleFirstName() {
         let maleFirstName = SwiftFake.maleFirstName()
 
