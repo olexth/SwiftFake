@@ -69,7 +69,28 @@ public struct SwiftFake {
         return Bool.randomBool() ? "Male" : "Female"
     }
 
+    public static func ageBetween(lower: Int, higher: Int) -> Int {
+        return Int.randomInt(from: lower, to: higher)
+    }
+
     // MARK: Date
+
+    public static func birthDateFor(age: Int) -> Date {
+        let calendar = NSCalendar.current
+        let date = Date()
+        let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date as Date)
+
+        var newDateComponents = DateComponents()
+        newDateComponents = dateComponents
+        let newDay = Int.randomInt(from: 1, to: 30)
+        let newMonth = Int.randomInt(from: 1, to: 12)
+        let newYear = dateComponents.year! - age
+        newDateComponents.day = newDay
+        newDateComponents.month = newMonth
+        newDateComponents.year = newYear
+
+        return calendar.date(from: newDateComponents)!
+    }
 
     // MARK: ID
 
@@ -98,16 +119,21 @@ public extension Bool {
     }
 }
 
-public extension String {
-    public func fakePrefix() -> String {
-        return "fake" + self
-    }
-}
-
 public extension Array {
     public func randomElement() -> Element {
         let arrayCount = UInt32(self.count)
         let index = Int(arc4random_uniform(arrayCount))
         return self[index]
+    }
+}
+
+public extension Int {
+    public static func randomInt(from lower: Int, to higher: Int) -> Int {
+        var safeLower = lower
+        var safeHigher = higher
+        if safeLower > safeHigher {
+            swap(&safeLower, &safeHigher)
+        }
+        return Int(arc4random_uniform(UInt32(safeHigher - safeLower + 1))) + safeLower
     }
 }

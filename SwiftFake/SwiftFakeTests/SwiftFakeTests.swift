@@ -10,7 +10,9 @@ import XCTest
 @testable import SwiftFake
 
 class SwiftFakeTests: XCTestCase {
+
     // MARK: Name
+
     func testFullName() {
         let fullName = SwiftFake.fullName()
 
@@ -175,6 +177,34 @@ class SwiftFakeTests: XCTestCase {
         let gender = SwiftFake.gender()
         XCTAssertNotNil(gender, "gender should be not nil")
         XCTAssertTrue(isFromeSource(gender: gender), "gender should be one of two values")
+    }
+
+    func testAge() {
+        let lower = 10
+        let higher = 80
+        let age = SwiftFake.ageBetween(lower: lower, higher: higher)
+        XCTAssertTrue(age > lower, "age should be more than lower value")
+        XCTAssertTrue(age < higher, "age should be less than higher value")
+
+        let wrongPassedRangeAge = SwiftFake.ageBetween(lower: higher, higher: lower)
+        XCTAssertTrue(wrongPassedRangeAge > lower, "age with wrong passed value should be more than lower value")
+        XCTAssertTrue(wrongPassedRangeAge < higher, "age with wrong passed value should be less than higher value")
+    }
+
+    // MARK: Date
+
+    func testBirthDateForAge() {
+        let age = 35
+        let birthDateForAge = SwiftFake.birthDateFor(age: age)
+        XCTAssertNotNil(birthDateForAge, "birth date should not be nil")
+
+        let calendar = NSCalendar.current
+        let date = Date()
+        let dateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date as Date)
+        let receivedDateComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: birthDateForAge as Date)
+        XCTAssertTrue(dateComponents.year! - age == receivedDateComponents.year, "birth year should be right")
+        XCTAssertTrue(dateComponents.hour! == receivedDateComponents.hour, "birth hour should be the same as current hour")
+        XCTAssertTrue(dateComponents.minute! == receivedDateComponents.minute, "birth minute should be the same as current minute")
     }
 
     // MARK: ID
