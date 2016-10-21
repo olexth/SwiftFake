@@ -183,6 +183,16 @@ class SwiftFakeTests: XCTestCase {
         let uuid = SwiftFake.uuidID()
         XCTAssertNotNil(NSUUID(uuidString: uuid), "id should be in correct UUID format")
     }
+
+    // MARK: Password
+
+    func testPassword() {
+        let length = 20
+        let password = SwiftFake.password(length: length)
+
+        XCTAssertNotNil(password, "password should be not nil")
+        XCTAssertTrue(password.characters.count == length, "password should be of set length")
+    }
 }
 
 private extension SwiftFakeTests {

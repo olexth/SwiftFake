@@ -76,6 +76,19 @@ public struct SwiftFake {
     public static func uuidID() -> String {
         return NSUUID().uuidString
     }
+
+    // MARK: Password
+
+    public static func password(length: Int) -> String {
+        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var randomString: String = ""
+
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(base.characters.count))
+            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+        }
+        return randomString
+    }
 }
 
 // Basic types extensions
