@@ -5,7 +5,7 @@
 //  Copyright (c) 2016 Alex Golub. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct SwiftFake {
     fileprivate let maleFirstNames = ["Victor", "Brian", "Steve", "Marcus", "Stanley", "Jaco", "John", "Avishai", "Richard", "Alex"]
@@ -109,6 +109,53 @@ public struct SwiftFake {
             randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
         }
         return randomString
+    }
+
+    // MARK: Image
+
+    public static func image(backgroundColor: UIColor) -> UIImage {
+        let imageSize = CGSize(width: 100, height: 100)
+        UIGraphicsBeginImageContext(imageSize)
+        backgroundColor.set()
+        UIRectFill(CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+
+    public static func imageWithColors() -> UIImage {
+        var colorsArray = [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
+        var subviewsArray = [UIView]()
+        for _ in 0..<4 {
+            let view = UIView()
+            let colorIndex = Int.randomInt(from: 0, to: colorsArray.count - 1)
+            view.backgroundColor = colorsArray[colorIndex]
+            colorsArray.remove(at: colorIndex)
+            subviewsArray.append(view)
+        }
+        let finalView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+
+        let leftTopSubview = subviewsArray[0]
+        leftTopSubview.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        finalView.addSubview(leftTopSubview)
+
+        let rightTopSubview = subviewsArray[1]
+        rightTopSubview.frame = CGRect(x: 50, y: 0, width: 50, height: 50)
+        finalView.addSubview(rightTopSubview)
+
+        let leftBottomSubview = subviewsArray[2]
+        leftBottomSubview.frame = CGRect(x: 0, y: 50, width: 50, height: 50)
+        finalView.addSubview(leftBottomSubview)
+
+        let rightBottomSubview = subviewsArray[3]
+        rightBottomSubview.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
+        finalView.addSubview(rightBottomSubview)
+
+        UIGraphicsBeginImageContext(finalView.frame.size)
+        finalView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return UIImage(cgImage: image!.cgImage!)
     }
 }
 

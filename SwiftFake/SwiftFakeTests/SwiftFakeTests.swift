@@ -223,6 +223,44 @@ class SwiftFakeTests: XCTestCase {
         XCTAssertNotNil(password, "password should be not nil")
         XCTAssertTrue(password.characters.count == length, "password should be of set length")
     }
+
+    // MARK: Image
+
+    func testImage() {
+        let color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        let image = SwiftFake.image(backgroundColor: color)
+        let imageColor = getPixelColor(image: image, pos: CGPoint(x: 50, y: 50))
+
+        XCTAssertNotNil(image, "image should be not nil")
+        XCTAssertEqual(color, imageColor, "color should be set to image")
+    }
+
+    func testImageWithColors() {
+        let image = SwiftFake.imageWithColors()
+        XCTAssertNotNil(image, "image should be not nil")
+
+        let topLeftImageColor = getPixelColor(image: image, pos: CGPoint(x: 25, y: 25))
+        let topRightImageColor = getPixelColor(image: image, pos: CGPoint(x: 75, y: 25))
+        let bottomLeftImageColor = getPixelColor(image: image, pos: CGPoint(x: 25, y: 75))
+        let bottomRightImageColor = getPixelColor(image: image, pos: CGPoint(x: 75, y: 75))
+        XCTAssertNotNil(topLeftImageColor, "top left color should not be nil")
+        XCTAssertNotNil(topRightImageColor, "top right color should not be nil")
+        XCTAssertNotNil(bottomLeftImageColor, "bottom left color should not be nil")
+        XCTAssertNotNil(bottomRightImageColor, "bottom right color should not be nil")
+
+        XCTAssertTrue(topLeftImageColor != topRightImageColor ||
+            topLeftImageColor != bottomLeftImageColor ||
+            topLeftImageColor != bottomRightImageColor, "top left color should not be equal to another colors")
+        XCTAssertTrue(topRightImageColor != topLeftImageColor ||
+            topRightImageColor != bottomLeftImageColor ||
+            topRightImageColor != bottomRightImageColor, "top right color should not be equal to another colors")
+        XCTAssertTrue(bottomLeftImageColor != topLeftImageColor ||
+            bottomLeftImageColor != topRightImageColor ||
+            bottomLeftImageColor != bottomRightImageColor, "bottom left color should not be equal to another colors")
+        XCTAssertTrue(bottomRightImageColor != topLeftImageColor ||
+            bottomRightImageColor != topRightImageColor ||
+            bottomRightImageColor != bottomLeftImageColor, "bottom right color should not be equal to another colors")
+    }
 }
 
 private extension SwiftFakeTests {
@@ -265,5 +303,19 @@ private extension SwiftFakeTests {
 
     func isFromeSource(gender: String) -> Bool {
         return ["Male", "Female"].contains(gender)
+    }
+
+    func getPixelColor(image: UIImage, pos: CGPoint) -> UIColor {
+        let pixelData = image.cgImage!.dataProvider!.data
+        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+
+        let pixelInfo: Int = ((Int(image.size.width) * Int(pos.y)) + Int(pos.x)) * 4
+
+        let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
+        let g = CGFloat(data[pixelInfo + 1]) / CGFloat(255.0)
+        let b = CGFloat(data[pixelInfo + 2]) / CGFloat(255.0)
+        let a = CGFloat(data[pixelInfo + 3]) / CGFloat(255.0)
+
+        return UIColor(red: r, green: g, blue: b, alpha: a)
     }
 }
