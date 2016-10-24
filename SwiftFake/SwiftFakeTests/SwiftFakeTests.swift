@@ -173,6 +173,17 @@ class SwiftFakeTests: XCTestCase {
 
     // MARK: Data
 
+    func testCity() {
+        let city = SwiftFake.city()
+
+        XCTAssertNotNil(city, "city name should not be nil")
+        XCTAssertTrue(city.characters.count > 1, "city name should be of normal length")
+        XCTAssertTrue(isUppercased(character: city.characters.first!), "city name should start from uppercase letter")
+
+        let cityNameComponents = city.components(separatedBy: " ")
+        XCTAssertTrue(cityNameComponents.count == 1, "city name should constisr from one word")
+     }
+
     func testGender() {
         let gender = SwiftFake.gender()
         XCTAssertNotNil(gender, "gender should be not nil")
