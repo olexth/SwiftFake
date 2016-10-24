@@ -239,7 +239,7 @@ class SwiftFakeTests: XCTestCase {
 
     func testImage() {
         let color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        let image = SwiftFake.image(backgroundColor: color)
+        let image = SwiftFake.image(color: color)
         let imageColor = getPixelColor(image: image, pos: CGPoint(x: 50, y: 50))
 
         XCTAssertNotNil(image, "image should be not nil")
