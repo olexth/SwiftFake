@@ -50,20 +50,26 @@ public struct SwiftFake {
     // MARK: Contact
 
     public static func email() -> String {
-        let namesList = ["example", "user", "dearuser", "yourfriend", "homer.simpson", "dart.vader", "jack.jones", "batman"]
-        let domainsList = ["aaa", "bbb", "uuu", "abc", "ccc", "ddd", "eee", "fff", "ggg"]
-        let topDomainsList = ["edu", "co", "com", "br", "io", "net", "org", "ua"]
-        return namesList.randomElement() + "@" + domainsList.randomElement() + "." + topDomainsList.randomElement()
+        let namesArray = ["example", "user", "dearuser", "yourfriend", "homer.simpson", "dart.vader", "jack.jones", "batman"]
+        let domainsArray = ["aaa", "bbb", "uuu", "abc", "ccc", "ddd", "eee", "fff", "ggg"]
+        let topDomainsArray = ["edu", "co", "com", "br", "io", "net", "org", "ua"]
+        return namesArray.randomElement() + "@" + domainsArray.randomElement() + "." + topDomainsArray.randomElement()
     }
 
     public static func phoneNumber() -> String {
-        let countriesList = ["27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38"]
-        let regionsList = ["000", "111", "222", "333", "444", "555", "666", "777", "888", "999"]
-        let phonesList = ["0000000", "1111111", "2222222", "3333333", "4444444", "5555555", "6666666", "7777777", "8888888", "9999999"]
-        return "+" + countriesList.randomElement() + regionsList.randomElement() + phonesList.randomElement()
+        let countriesArray = ["27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38"]
+        let regionsArray = ["000", "111", "222", "333", "444", "555", "666", "777", "888", "999"]
+        let phonesArray = ["0000000", "1111111", "2222222", "3333333", "4444444", "5555555", "6666666", "7777777", "8888888", "9999999"]
+        return "+" + countriesArray.randomElement() + regionsArray.randomElement() + phonesArray.randomElement()
     }
 
     // MARK: Data
+
+    public static func city() -> String {
+        let prefixes = ["Det", "Ives", "Checo", "Lay", "Rock", "Dale", "Morri", "Park", "Dixie", "Frier", "Bras", "Crow", "Wolf", "Grid", "Rums"]
+        let postfixes = ["mold", "dale", "tah", "ville", "hill", "york", "son", "way", "land", "ona", "well", "der", "boro", "ley", "town"]
+        return prefixes.randomElement() + postfixes.randomElement()
+    }
 
     public static func gender() -> String {
         return Bool.randomBool() ? "Male" : "Female"
