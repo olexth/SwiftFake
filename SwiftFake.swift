@@ -15,6 +15,10 @@ public struct SwiftFake {
 
     // MARK: Name
 
+    /**
+        Call it when you just want full name, without setting gender
+        @return full name
+    */
     public static func fullName() -> String {
         if Bool.randomBool() == true {
             return SwiftFake.maleFullName()
@@ -23,32 +27,60 @@ public struct SwiftFake {
         }
     }
 
+    /**
+        Male first name
+        @return male first name
+    */
     public static func maleFirstName() -> String {
         return SwiftFake().maleFirstNames.randomElement()
     }
 
+    /**
+        Male last name
+        @return male last name
+     */
     public static func maleLastName() -> String {
         return SwiftFake().maleLastNames.randomElement()
     }
 
+    /**
+        Male full name
+        @return male full name
+     */
     public static func maleFullName() -> String {
         return maleFirstName() + " " + maleLastName()
     }
 
+    /**
+        Female first name
+        @return female first name
+     */
     public static func femaleFirstName() -> String {
         return SwiftFake().femaleFirstNames.randomElement()
     }
 
+    /**
+        Female last name
+        @return female last name
+     */
     public static func femaleLastName() -> String {
         return SwiftFake().femaleLastNames.randomElement()
     }
 
+    /**
+        Female full name
+        @return female full name
+     */
     public static func femaleFullName() -> String {
         return femaleFirstName() + " " + femaleLastName()
     }
 
     // MARK: Contact
 
+    /**
+        Email
+        @return email
+     */
     public static func email() -> String {
         let namesArray = ["example", "user", "dearuser", "yourfriend", "homer.simpson", "dart.vader", "jack.jones", "batman"]
         let domainsArray = ["aaa", "bbb", "uuu", "abc", "ccc", "ddd", "eee", "fff", "ggg"]
@@ -56,6 +88,10 @@ public struct SwiftFake {
         return namesArray.randomElement() + "@" + domainsArray.randomElement() + "." + topDomainsArray.randomElement()
     }
 
+    /**
+        Phone number
+        @return phone number
+     */
     public static func phoneNumber() -> String {
         let countriesArray = ["27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38"]
         let regionsArray = ["000", "111", "222", "333", "444", "555", "666", "777", "888", "999"]
@@ -65,22 +101,43 @@ public struct SwiftFake {
 
     // MARK: Data
 
+    /**
+        City name.
+        @return city name
+     */
     public static func city() -> String {
         let prefixes = ["Det", "Ives", "Checo", "Lay", "Rock", "Dale", "Morri", "Park", "Dixie", "Frier", "Bras", "Crow", "Wolf", "Grid", "Rums"]
         let postfixes = ["mold", "dale", "tah", "ville", "hill", "york", "son", "way", "land", "ona", "well", "der", "boro", "ley", "town"]
         return prefixes.randomElement() + postfixes.randomElement()
     }
 
+    /**
+        One of two genders.
+        @return gender
+     */
     public static func gender() -> String {
         return Bool.randomBool() ? "Male" : "Female"
     }
 
+    /**
+        Age in range
+        @param lower lower bound of generated age
+        @param higher higher bound of generated age
+        @return age
+     */
     public static func ageBetween(lower: Int, higher: Int) -> Int {
         return Int.randomInt(from: lower, to: higher)
     }
 
     // MARK: Date
 
+    /**
+        Birth date for age.
+        @discussion Month and day will be randomly set, but year will be a current minus age. Time (hours and minutes)
+                    will also be the same as current when called.
+        @param age for which birth date will be generated
+        @return birth date
+     */
     public static func birthDateFor(age: Int) -> Date {
         let calendar = NSCalendar.current
         let date = Date()
@@ -100,12 +157,23 @@ public struct SwiftFake {
 
     // MARK: ID
 
+    /**
+        ID in format of uuid : https://en.wikipedia.org/wiki/Universally_unique_identifier
+        @discussion String description of the UUID, such as "E621E1F8-C36C-495A-93FC-0C247A3E6E5F"
+        @return uuidID
+     */
     public static func uuidID() -> String {
         return NSUUID().uuidString
     }
 
     // MARK: Password
 
+    /**
+        Password.
+        @discussion Only digits and english alphabet symbols are included
+        @param length Length for generated password
+        @return pasword
+     */
     public static func password(length: Int) -> String {
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString: String = ""
@@ -119,16 +187,27 @@ public struct SwiftFake {
 
     // MARK: Image
 
-    public static func image(backgroundColor: UIColor) -> UIImage {
+    /**
+        Image filled with color.
+        @discussion Generated image which can be filled with color
+        @param color for filling image
+        @return image
+     */
+    public static func image(color: UIColor) -> UIImage {
         let imageSize = CGSize(width: 100, height: 100)
         UIGraphicsBeginImageContext(imageSize)
-        backgroundColor.set()
+        color.set()
         UIRectFill(CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
     }
 
+    /**
+        Image from for colored squares.
+        @discussion Generated image which will be filled with for squares of different color
+        @return image
+     */
     public static func imageWithColors() -> UIImage {
         var colorsArray = [UIColor.black, UIColor.darkGray, UIColor.lightGray, UIColor.white, UIColor.gray, UIColor.red, UIColor.green, UIColor.blue, UIColor.cyan, UIColor.yellow, UIColor.magenta, UIColor.orange, UIColor.purple, UIColor.brown]
         var subviewsArray = [UIView]()
