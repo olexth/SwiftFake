@@ -9,13 +9,14 @@ Best tool for setting up login, filling editing or updating user's fields
 
 ## Usage
 ``` swift
-let name = SwiftRandom.fullName() // "Jaco Pastorius"
+let name = SwiftFake.fullName() // "Jaco Pastorius"
 ```
 
 
 
 ## Installation
-
+### Cocoapods
+in progress
 
 ## Contact
 
