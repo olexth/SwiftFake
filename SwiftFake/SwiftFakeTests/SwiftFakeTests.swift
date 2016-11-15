@@ -129,8 +129,8 @@ class SwiftFakeTests: XCTestCase {
                 isPrefix = false
             }
         }
-        XCTAssertTrue(prefix.characters.count > 0, "email's prefix should not be of null length")
-        XCTAssertTrue(postfix.characters.count > 0, "email's postfix should not be of null length")
+        XCTAssertTrue(prefix.characters.count >= 4, "email's prefix should contain more or equal than 4 symbols")
+        XCTAssertTrue(postfix.characters.count >= 6, "email's postfix should contain more or equal than 6 symbols")
         XCTAssertTrue(postfix.contains("."), "email postfix should contain dot symbol")
 
         var subDomain = ""
@@ -147,8 +147,8 @@ class SwiftFakeTests: XCTestCase {
                 isSubDomain = false
             }
         }
-        XCTAssertTrue(subDomain.characters.count > 0, "subdomain should not be of null length")
-        XCTAssertTrue(topLevelDomain.characters.count > 0, "top level domain should not be of null length")
+        XCTAssertTrue(subDomain.characters.count == 3, "subdomain should contain 3 symbols")
+        XCTAssertTrue(topLevelDomain.characters.count >= 2, "top level domain should contain more or equal than 2 symbols")
     }
 
     func testPhoneNumber() {
