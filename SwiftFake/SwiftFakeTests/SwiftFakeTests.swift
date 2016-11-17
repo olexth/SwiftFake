@@ -202,6 +202,12 @@ class SwiftFakeTests: XCTestCase {
         XCTAssertTrue(wrongPassedRangeAge < higher, "age with wrong passed value should be less than higher value")
     }
 
+    func testTitle() {
+        let title = SwiftFake.title()
+
+        XCTAssertTrue(isFromeSource(title: title), "title should be from source")
+    }
+
     // MARK: Date
 
     func testBirthDateForAge() {
@@ -314,6 +320,10 @@ private extension SwiftFakeTests {
 
     func isFromeSource(gender: String) -> Bool {
         return ["Male", "Female"].contains(gender)
+    }
+
+    func isFromeSource(title: String) -> Bool {
+        return ["CEO", "COO", "CTO", "Director", "Head", "President", "Vice President", "Coordinator", "Assistant", "Worker"].contains(title)
     }
 
     func getPixelColor(image: UIImage, pos: CGPoint) -> UIColor {
