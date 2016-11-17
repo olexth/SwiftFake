@@ -129,6 +129,15 @@ public struct SwiftFake {
         return Int.randomInt(from: lower, to: higher)
     }
 
+    /**
+     Title
+     @return title
+     */
+    public static func title() -> String {
+        let title = ["CEO", "COO", "CTO", "Director", "Head", "President", "Vice President", "Coordinator", "Assistant", "Worker"]
+        return title.randomElement()
+    }
+
     // MARK: Date
 
     /**
